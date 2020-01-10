@@ -40,9 +40,9 @@ function promptUser() {
             color: color
           };
           console.log(data);
-          htmlFile(data);
+          // htmlFile(data);
           // newHTML(htmlFile(data));
-          makePdf(username);
+          makePdf(data);
         }); 
       });
 
@@ -95,10 +95,11 @@ async function makePdf(username) {
   try {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto("./newHTML.js"), {waitUntil: 'networkidle'};
+    // await page.goto("./newHTML.js"), {waitUntil: 'networkidle'};
+    page.setContent(htmlFile(username))
     // await page.emulateMedia("screen");
     await page.pdf({
-      path: `${username}.pdf`,
+      path: `${username.username}.pdf`,
       format: "A4",
       printBackground: true,
       // landscape: true
